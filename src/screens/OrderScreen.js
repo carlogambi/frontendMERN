@@ -81,7 +81,7 @@ const OrderScreen = ({ match }) => {
                 ? 
                 <Message variant='danger'>{error}</Message>
                 :
-                order && (<>
+                (order.shippingAddress) && (<>
                     <h2>order {order._id}</h2>
                     <Row>
             <Col md={8}>
