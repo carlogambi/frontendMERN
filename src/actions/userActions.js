@@ -31,6 +31,7 @@ import {
     USER_DELETE_REVIEW_SUCCESS,
     USER_DELETE_REVIEW_FAIL
 } from "../constants/userConstants"
+import serverUrl from "./serverUrl"
 
 export const login = (email, password) => async( dispatch) =>{
     try {
@@ -43,7 +44,7 @@ export const login = (email, password) => async( dispatch) =>{
                 'Content-Type':'application/json',
             }
         }
-        const { data } = await axios.post('/api/users/login', {email, password}, config)
+        const { data } = await axios.post(`${serverUrl}/api/users/login`, {email, password}, config)
     
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -86,7 +87,7 @@ export const register = (name, email, password) => async( dispatch) =>{
             }
         }
         const { data } = await axios.post(
-            '/api/users/register', 
+            `${serverUrl}/api/users/register`, 
             {name, email, password}, 
             config
         )
@@ -130,7 +131,7 @@ export const getUserDetails = (id) => async( dispatch, getState) =>{
         }
         // console.log(`/api/users/${id}`, `Bearer ${getState().userLogin.userInfo.token}`);
         const { data } = await axios.get(
-            `/api/users/profile`, config
+            `${serverUrl}/api/users/profile`, config
         )
     
         dispatch({
@@ -165,7 +166,7 @@ export const updateUser = (user) => async( dispatch, getState) =>{
         }
         // console.log(`/api/users/${id}`, `Bearer ${getState().userLogin.userInfo.token}`);
         const { data } = await axios.put(
-            `/api/users/update`,user, config
+            `${serverUrl}/api/users/update`,user, config
             )
     
         dispatch({
@@ -197,7 +198,7 @@ export const listUsers = () => async( dispatch, getState) =>{
             }
         }
         const { data } = await axios.get(
-            `/api/users`, config
+            `${serverUrl}/api/users`, config
             ) 
             console.log('action listUsers called', data);
     
@@ -230,7 +231,7 @@ export const deleteUser = (userId) => async( dispatch, getState) =>{
             }
         }
         const { data } = await axios.delete(
-            `/api/users/delete/${userId}`, config
+            `${serverUrl}/api/users/delete/${userId}`, config
             ) 
             console.log('action listUsers called', data);
             
@@ -263,7 +264,7 @@ export const getUserByIdAction = (userId) => async(dispatch, getState) => {
                 'Authorization': `Bearer ${token}`
             }
         }
-        const {data: user} = await axios.get(`/api/users/getById/${userId}`, config)
+        const {data: user} = await axios.get(`${serverUrl}/api/users/getById/${userId}`, config)
 
         dispatch({
             type: USER_GETBYID_SUCCESS,
@@ -298,7 +299,7 @@ export const getUserReviews = () => async( dispatch, getState) =>{
         }
         // console.log(`/api/users/${id}`, `Bearer ${getState().userLogin.userInfo.token}`);
         const { data } = await axios.get(
-            `/api/users/getReviews`, config
+            `${serverUrl}/api/users/getReviews`, config
         )
     
         dispatch({
@@ -333,7 +334,7 @@ export const deleteUserReview = (productId, reviewId) => async( dispatch, getSta
             }
         }
          await axios.delete( 
-            `/api/users/deleteReview/${productId}/${reviewId}`, config
+            `${serverUrl}/api/users/deleteReview/${productId}/${reviewId}`, config
         )
     
         dispatch({

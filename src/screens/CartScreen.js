@@ -26,7 +26,6 @@ const CartScreen = ({match, location, history}) => {
         dispatch(removeFromCart(id))
         
     }
-
     const checkOut = () => {
         history.push('/login?redirect=shipping')
     }

@@ -8,6 +8,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import {  getOrderDetails, payOrder } from '../actions/orderAction'
 import { ORDER_DETAILS_RESET, ORDER_PAY_RESET } from '../constants/orderConstants'
+import serverUrl from '../actions/serverUrl'
 
 
 
@@ -38,28 +39,26 @@ const OrderScreen = ({ match }) => {
 
 }
         useEffect(() => {
+            console.log(order);
             if(!loading && (orderId !== order._id)){
                 dispatch(getOrderDetails(orderId))
             }
             const addPaypalScript = async() => {
-                const clientId  = (
-                    await axios.get('/api/config/paypal')
-                    ).data
-                    const script = document.createElement('script')
-                    script.type = 'text/javascript'
-                    script.async = true
-                    script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
-                    script.onload = () => setSDKready(true)
-                    let presentScripts = document.getElementsByTagName('script')
-                    presentScripts = Array.from(presentScripts).map(s => s.src);
-                    console.log((presentScripts.includes(script.src)))
-                    if((presentScripts.includes(script.src)))document.body.appendChild(script)
+                const clientId  = (await axios.get(`${serverUrl}/api/config/paypal`)).data
+                const script = document.createElement('script')
+                script.type = 'text/javascript'
+                script.async = true
+                script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+                script.onload = () => setSDKready(true)
+                let presentScripts = document.getElementsByTagName('script')
+                presentScripts = Array.from(presentScripts).map(s => s.src);
+                if((presentScripts.includes(script.src)))document.body.appendChild(script)
                 }
                 if(!order || successPay){
                     dispatch({type: ORDER_PAY_RESET})
                     dispatch(getOrderDetails(orderId))
                 }else if(!order.isPaid){
-                    if(!window.paypal)addPaypalScript()
+                    try{addPaypalScript()}catch(e){console.log(e);}
                 setSDKready(true)
             }
         }, [dispatch, orderId, order, successPay, loading])
@@ -83,7 +82,7 @@ const OrderScreen = ({ match }) => {
                 <Message variant='danger'>{error}</Message>
                 :
                 <>
-                    <h2>order {order._id}</h2>
+                    {order && <h2>order {order._id}</h2>}
                     <Row>
             <Col md={8}>
                 <ListGroup variant='flush'>

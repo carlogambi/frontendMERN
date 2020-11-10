@@ -41,6 +41,7 @@ function FavoriteScreen({location, history}) {
     return ( 
         <Col>
         {error && <p>{JSON.stringify(error)}</p>}
+        <h1>favorites</h1>
         {
             userInfo.favorites.map((f,i) => (
                  <Accordion key={i} defaultActiveKey="1">

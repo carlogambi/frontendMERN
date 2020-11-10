@@ -29,7 +29,7 @@ export const listProducts = () => async (dispatch) => {
         dispatch({
             type: PRODUCT_LIST_REQUEST
         })
-        console.log(serverUrl+'/api/products')
+        console.log(`${serverUrl}/api/products`)
         const  { data } = await axios.get(serverUrl+'/api/products')
 
         dispatch({
@@ -52,8 +52,7 @@ export const getProductDetails = (id) => async (dispatch) => {
         dispatch({
             type: PRODUCT_DETAILS_REQUEST
         })
-
-        const  { data } = await axios.get(serverUrl+`/api/products/${id}`)
+        const  { data } = await axios.get(`${serverUrl}/api/products/${id}`)
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data
@@ -87,7 +86,7 @@ export const createProductAction = (formData) => async (dispatch, getState) => {
         var object = {};
         formData.forEach((value, key) => {object[key] = value});
         const  {data}  = await axios.post(
-            serverUrl+`/api/products/newProduct`,formData, config
+            `${serverUrl}/api/products/newProduct`,formData, config
         )
 
             data.success
@@ -120,7 +119,7 @@ export const editProductAction = (formData, productId) => async (dispatch, getSt
             }
         }
         const  {data}  = await axios.put(
-            serverUrl+`/api/products/edit/${productId}`,formData, config
+            `${serverUrl}/api/products/edit/${productId}`,formData, config
         )
 
             data.success
@@ -154,7 +153,7 @@ export const deleteProductAction = (id) => async (dispatch, getState) => {
         }
 
         
-         await axios.delete(serverUrl+`/api/products/delete/${id}`, config)
+         await axios.delete(`${serverUrl}/api/products/delete/${id}`, config)
         dispatch({
             type: PRODUCT_DELETE_SUCCESS,
         })
@@ -184,7 +183,7 @@ export const newReviewAction = (productId, review) => async (dispatch, getState)
         }
 
         
-        const {data} = await axios.put(serverUrl+`/api/products/newReview/${productId}`,review, config)
+        const {data} = await axios.put(`${serverUrl}/api/products/newReview/${productId}`,review, config)
         console.log(data);
 
         dispatch({

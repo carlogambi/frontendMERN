@@ -27,10 +27,8 @@ const PlaceOrderScreen = ({ history }) => {
 
         const orderCreate = useSelector(state => state.orderCreate)
         const { order, success, error } = orderCreate
-        console.log(orderCreate)
 
         useEffect(() => {
-            console.log(order, cart)
             if(success)history.push(`/orders/${order._id}`)
             // eslint-disable-next-line
         }, [history, success])

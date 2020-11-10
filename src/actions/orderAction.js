@@ -19,6 +19,7 @@ import {
     SET_SHIPPING_DATE_ORDER_SUCCESS,
     SET_SHIPPING_DATE_ORDER_FAIL
 } from "../constants/orderConstants"
+import serverUrl from "./serverUrl"
 
 export const createOrder = (order) => async( dispatch, getState) =>{
     try {
@@ -35,7 +36,7 @@ export const createOrder = (order) => async( dispatch, getState) =>{
             }
         }
         const { data } = await axios.post(
-            `/api/orders`,order, config
+            `${serverUrl}/api/orders`,order, config
         )
     
         dispatch({
@@ -67,7 +68,7 @@ export const getOrderDetails = (orderId) => async( dispatch, getState) =>{
             }
         }
         const { data } = await axios.get(
-            `/api/orders/getOrder/${orderId}`, config
+            `${serverUrl}/api/orders/getOrder/${orderId}`, config
         )
     
         dispatch({
@@ -90,19 +91,19 @@ export const payOrder = (orderId, paymentResult) => async( dispatch, getState) =
         dispatch({
             type: ORDER_PAY_REQUEST
         })
-
+        console.log(paymentResult);
         const token = getState().userLogin.userInfo.token
 
         const config = {
             headers: {
-                'Ontent-Type': 'application.json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         }
         const { data } = await axios.put(
-            `/api/orders/getOrder/${orderId}/pay`, paymentResult, config
+            `${serverUrl}/api/orders/getOrder/${orderId}/pay`, paymentResult, config
         )
-    
+            
         dispatch({
             type: ORDER_PAY_SUCCESS,
             payload: data
@@ -127,12 +128,12 @@ export const listUserOrders = () => async( dispatch, getState) =>{
 
         const config = {
             headers: {
-                'Ontent-Type': 'application.json',
+                'Content-Type': 'application.json',
                 'Authorization': `Bearer ${token}`
             }
         }
         const { data } = await axios.get(
-            `/api/orders/userOrders`, config
+            `${serverUrl}/api/orders/userOrders`, config
         )
     
         dispatch({
@@ -160,12 +161,12 @@ export const getAllUsersOrders = () => async( dispatch, getState) =>{
 
         const config = {
             headers: {
-                'Ontent-Type': 'application.json',
+                'Content-Type': 'application.json',
                 'Authorization': `Bearer ${token}`
             }
         }
         const { data } = await axios.get(
-            `/api/orders/allUsersOrders`, config
+            `${serverUrl}/api/orders/allUsersOrders`, config
         )
     
         dispatch({
@@ -193,7 +194,7 @@ export const setShippingDateAction = (date, orderId) => async( dispatch, getStat
 
         const config = {
             headers: {
-                'Ontent-Type': 'application.json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         }
@@ -201,7 +202,7 @@ export const setShippingDateAction = (date, orderId) => async( dispatch, getStat
         console.log(date, orderId);
 
         const { data } = await axios.put(
-            `/api/orders/setShippingDate`,{date, orderId}, config
+            `${serverUrl}/api/orders/setShippingDate`,{date, orderId}, config
         )
     
         dispatch({
