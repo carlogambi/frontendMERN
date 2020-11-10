@@ -68,8 +68,8 @@ const OrderScreen = ({ match }) => {
         })
         
         const successPaymentHandler = (paymentResult) => {
-            console.log(paymentResult)
             dispatch(payOrder(order._id, paymentResult))
+            
         }
 
 
@@ -81,8 +81,8 @@ const OrderScreen = ({ match }) => {
                 ? 
                 <Message variant='danger'>{error}</Message>
                 :
-                <>
-                    {order && <h2>order {order._id}</h2>}
+                order && (<>
+                    <h2>order {order._id}</h2>
                     <Row>
             <Col md={8}>
                 <ListGroup variant='flush'>
@@ -235,7 +235,7 @@ const OrderScreen = ({ match }) => {
                 </Card>
             </Col>
         </Row>
-                </>   
+                </>)   
 }
 
 export default OrderScreen
