@@ -22,6 +22,13 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import UserListScreen from './screens/UserListScreen';
 
+alert(`
+!*!- ATTEZIONE -!*!
+  Questo è un sito dimostrativo
+  pensato per presentare un prodotto in lavorazione
+  inserire solamente dati fittizi
+`)
+
 const App = () => {
   return (
     <Router>
