@@ -23,7 +23,7 @@ const Header = () => {
 
                 <LinkContainer to='/'>
                     <Navbar.Brand >
-                        <h4>carlo gambirasio</h4>
+                        <h4>A NAME HERE</h4>
                         <p>e-commerce sample</p>
                     </Navbar.Brand>
                 </LinkContainer>
